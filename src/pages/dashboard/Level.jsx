@@ -5,6 +5,7 @@ import { GoArrowLeft } from "react-icons/go";
 import { fetchActivePacks } from "../../app/service/packs.service"; // Import fetch action
 import BottomNavMobile from "./components/BottomNavMobile";
 import setPacks from "../../app/slice/packs.slice"
+import Loader from "./components/Load";
 
 const Level = () => {
     const dispatch = useDispatch();
@@ -29,8 +30,13 @@ const Level = () => {
         };
         fetchPacks();
     }, [dispatch, packs]);
+    
+    if (isLoading){
+        return <><Loader/></>
+    }
 
     return (
+
         <div className="min-h-screen bg-white p-2 md:p-8">
             {/* Back Button */}
             <div className="w-fit bg-gray-200 p-2 rounded-lg shadow-sm mb-6">
@@ -49,7 +55,7 @@ const Level = () => {
             {/* Cards Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:mb-1 mb-52">
                 {isLoading ? (
-                    <p className="text-center">Loading packs...</p>
+                    <p className="text-center"></p>
                 ) : error ? (
                     <p className="text-red-500 text-center">{error}</p>
                 ) : packItems.length > 0 ? (
@@ -86,7 +92,7 @@ const Level = () => {
                         </motion.div>
                     ))
                 ) : (
-                    <p className="text-center">No packs available.</p>
+                    <p className="text-center"></p>
                 )}
             </div>
 

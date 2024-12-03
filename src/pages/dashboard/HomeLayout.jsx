@@ -27,7 +27,7 @@ const HomeLayout = () => {
                     </div>
                     <div className="flex items-center justify-center space-x-2 text-gray-500">
                         <a href="/home/profile" className="flex">
-                            <span className="text-lg font-medium">{profile?.first_name || "User"}</span>
+                            <span className="text-lg font-medium">{profile?.first_name || ""}</span>
                             {profile?.profile_picture?(<img
                                 src={profile?.profile_picture || profilep}
                                 alt="Profile"
