@@ -159,7 +159,7 @@ const Starting = () => {
     };
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center min-h-screen">
             {/* Greeting and Wallet Information Section */}
             <div className="w-full mx-auto mt-4 bg-white rounded-lg shadow-lg p-4">
                 <div className="flex justify-between items-center">
@@ -206,14 +206,14 @@ const Starting = () => {
             </div>
 
             {/* Start Optimization Carousel */}
-            <div className="w-full h-auto mx-auto mt-8 bg-white rounded-lg shadow-lg p-4">
+            <div className="w-full h-auto  mt-8 bg-white rounded-lg shadow-lg p-4">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold">Start Optimization</h2>
                     <p className="text-red-500 text-xl font-semibold">
                         {currentGame?.current_number_count || 0} / {currentGame?.total_number_can_play || 0}
                     </p>
                 </div>
-                <div className="relative flex justify-center items-center">
+                <div className="relative flex justify-center items-center w-full">
                     {/* Previous Button */}
                     <button
                         onClick={handlePrevSlide}
@@ -234,13 +234,14 @@ const Starting = () => {
                             animate="center"
                             exit="exit"
                             transition={{ duration: 0.5 }}
-                            className="grid gap-y-4"
+                            className="grid gap-y-4 "
                         >
-                            <div className="col-span-4 flex justify-around">
+                            <div className="">
+                            <div className="col-span-4 flex justify-around w-full">
                                 {groupedProducts[currentSlide]?.slice(0, 4).map((product, idx) => (
                                     <div
                                         key={product.id || idx}
-                                        className="flex justify-center items-center border rounded-full mx-4 md:mx-10 bg-gray-500 p-0.5 h-[70px] md:w-[200px] md:h-[200px]"
+                                        className="flex justify-center items-center border rounded-full mx-4 md:mx-10 bg-gray-500 p-0.5 h-[70px] md:w-[150px] md:h-[150px]"
                                     >
                                         <img
                                             src={product.image || "https://via.placeholder.com/150"}
@@ -250,11 +251,11 @@ const Starting = () => {
                                     </div>
                                 ))}
                             </div>
-                            <div className="col-span-4 flex justify-center gap-4 mt-4">
+                            <div className="col-span-4 flex justify-center  mt-4">
                                 {groupedProducts[currentSlide]?.slice(4, 7).map((product, idx) => (
                                     <div
                                         key={product.id || idx}
-                                        className="flex justify-center items-center border rounded-full bg-gray-500 p-0.5 mx-4 md:mx-14 w-[70px] h-[70px] md:w-[200px] md:h-[200px]"
+                                        className="flex justify-center items-center border rounded-full bg-gray-500 p-0.5 mx-4 md:mx-14 w-[70px] h-[70px] md:w-[150px] md:h-[150px]"
                                     >
                                         <img
                                             src={product.image || "https://via.placeholder.com/150"}
@@ -263,6 +264,7 @@ const Starting = () => {
                                         />
                                     </div>
                                 ))}
+                            </div>
                             </div>
                         </motion.div>
                     ) : (

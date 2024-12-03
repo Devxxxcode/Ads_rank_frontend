@@ -125,7 +125,7 @@ const Home = () => {
     ) : (
         <div className="min-h-screen bg-white flex flex-col relative">
             {/* Video Section */}
-            <div className="relative w-full md:h-96 h-[15rem] md:mt-0 mt-2 overflow-hidden">
+            <div className="relative w-full md:h-[31rem] h-[15rem] md:mt-0 mt-2 overflow-hidden">
                 <video
                     className="w-full h-full object-fill"
                     autoPlay
@@ -149,7 +149,7 @@ const Home = () => {
             <motion.div
                 initial={{ y: -50 }}
                 animate={{ y: 0 }}
-                className="absolute top-[375px] left-[5%] bg-white text-black py-2 px-4 rounded-full shadow-md z-30 flex items-center justify-center"
+                className="absolute top-[14.5rem] md:top-[30rem] left-[5%] bg-white text-black py-2 px-4 rounded-full shadow-md z-30 flex items-center justify-center"
                 style={{ width: "90%", maxWidth: "90%", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
                 transition={{ duration: 0.5 }}
             >
@@ -237,7 +237,7 @@ const Home = () => {
                     </button>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {isLoading ? (
                         <p>Loading packs...</p>
                     ) : error ? (
@@ -248,7 +248,7 @@ const Home = () => {
                                 key={idx}
                                 whileHover={{ scale: 1.05 }}
                                 onClick={() => navigate("/home/level")}
-                                className="bg-white p-5 rounded-lg cursor-pointer shadow-lg flex flex-col justify-center items-center h-auto md:h-40 relative"
+                                className="bg-white p-5 rounded-lg cursor-pointer shadow-lg flex flex-col justify-center items-center h-auto md:h-auto relative"
                             >
                                 <div className="flex justify-between w-full items-center mb-2">
                                     {/* Use <img> to render the image */}
