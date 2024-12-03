@@ -223,7 +223,7 @@ const Starting = () => {
 
                     {/* Carousel Content */}
                     {isLoading ? (
-                        <p className="text-lg text-gray-500">Loading products...</p>
+                        <p className="text-lg text-gray-500"><Loader/></p>
                     ) : groupedProducts[0]?.length > 0 ? (
                         <motion.div
                             key={currentSlide}

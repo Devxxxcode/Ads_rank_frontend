@@ -13,6 +13,7 @@ export const productsAPI = `${BASEURL}/api/products/`;
 export const depositsAPI = `${BASEURL}/api/deposits/`;
 export const settingsAPI = `${BASEURL}/auth/settings/`;
 export const paymentsAPI = `${BASEURL}/api/payments/`;
+export const eventAPI = `${BASEURL}/api/events/`;
 export const fetchWithdrawals = `${BASEURL}/api/withdrawals/withdrawal_history/`;
 export const makeWithdrawals = `${BASEURL}/api/withdrawals/make_withdrawal/`;
 export const notificationsAPI = `${BASEURL}/api/notifications/`;
