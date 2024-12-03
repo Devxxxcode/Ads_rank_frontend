@@ -8,11 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchEvents } from "../../app/service/event.service";
 import Loader from "./components/Load";
 
-const images = [
-    { src: event1, orientation: "landscape" },
-    { src: event2, orientation: "portrait" },
-    { src: event3, orientation: "portrait" },
-];
 
 const Events = () => {
     const dispatch = useDispatch();
@@ -61,12 +56,12 @@ const Events = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.6 }}
-                        className="flex justify-center items-center w-full h-[650px] md:h-[500px]"
+                        className="flex justify-center items-center w-full h-[700px] md:h-[500px]"
                     >
                         <img
                             src={events[current]?.image}
                             alt={`Event ${current + 1}`}
-                            className={`${events[current]?.orientation === "landscape" ? "w-full h-auto" : "h-full w-auto"} object-cover rounded-lg`}
+                            className={` object-contain rounded-lg w-full h-full`}
                         />
                     </motion.div>
     

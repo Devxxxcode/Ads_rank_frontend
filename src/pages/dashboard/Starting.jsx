@@ -266,7 +266,8 @@ const Starting = () => {
                             </div>
                         </motion.div>
                     ) : (
-                        <p className="text-lg text-gray-500">No products available</p>
+                        // <p className="text-lg text-gray-500">No products available</p>
+                        <p></p>
                     )}
 
                     {/* Next Button */}
@@ -291,7 +292,7 @@ const Starting = () => {
                 <h2 className="text-lg font-bold">Important Hint</h2>
                 <ul className="list-disc ml-4 mt-2 text-gray-600">
                     <li>Working hours: {profile?.settings?.service_availability_start_time || "00:00"} - {profile?.settings?.service_availability_end_time || "23:00:00"}</li>
-                    <li>For inquiries about applicants, please consult agency services</li>
+                    <li>For inquiries about applicants, please consult Customer Support Services</li>
                 </ul>
             </div>
 
@@ -489,3 +490,5 @@ const Starting = () => {
 };
 
 export default Starting;
+
+

@@ -105,14 +105,14 @@ const Login = () => {
                             htmlFor="username"
                             className="block text-sm font-medium text-gray-700"
                         >
-                            Username/Phone
+                            Username/Email
                         </label>
                         <input
                             type="text"
                             id="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Username/Phone"
+                            placeholder="Username/Email"
                             className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
                     </div>
