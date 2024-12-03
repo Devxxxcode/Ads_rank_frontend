@@ -11,6 +11,7 @@ import ErrorHandler from "../../app/ErrorHandler";
 import { fetchProfileFailure, fetchProfileStart, fetchProfileSuccess } from "../../app/slice/profile.slice";
 import authService from "../../app/service/auth.service";
 import Loader from "../dashboard/components/loader"
+import LoadingSpinner from "./components/LoadingSpinner";
 
 const slideVariants = {
     enter: (direction) => ({
@@ -296,7 +297,11 @@ const Starting = () => {
 
             {/* Modal */}
             {isModalOpen && currentGame && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                
+                <div className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center`}>
+                    { isLoading && <div className=" absolute z-[100]">
+                    <LoadingSpinner/>
+                    </div>}
                     <motion.div
                         initial={{ opacity: 0, y: 300 }}
                         animate={{ opacity: 1, y: 0 }}
