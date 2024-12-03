@@ -125,9 +125,9 @@ const Home = () => {
     ) : (
         <div className="min-h-screen bg-white flex flex-col relative">
             {/* Video Section */}
-            <div className="relative w-full h-96 md:mt-0 mt-2 overflow-hidden">
+            <div className="relative w-full md:h-96 h-[15rem] md:mt-0 mt-2 overflow-hidden">
                 <video
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-fill"
                     autoPlay
                     loop
                     muted
