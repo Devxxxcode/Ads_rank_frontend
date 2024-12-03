@@ -1,4 +1,4 @@
-export const BASEURL = "https://ads-backend-sbp8.onrender.com";
+export const BASEURL = "https://ads-backend-mh29.onrender.com";
 // export const BASEURL = "http://127.0.0.1:8000/";
 
 export const loginAPI = `${BASEURL}/auth/login/`;
