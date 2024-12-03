@@ -64,12 +64,7 @@ const Withdraw = () => {
                 setPassword("");
             } else {
                 // Extract error message
-                const errorMessage =
-                    response.message?.error?.[0] || // Check `message.error`
-                    response.errors?.error?.[0] || // Check `errors.error`
-                    "An error occurred during withdrawal."; // Fallback error message
-
-                toast.error(errorMessage);
+                ErrorHandler(response.message);
             }
         } catch (error) {
             // Log and display unexpected errors

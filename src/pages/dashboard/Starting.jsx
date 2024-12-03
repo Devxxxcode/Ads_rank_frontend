@@ -255,7 +255,7 @@ const Starting = () => {
                                 {groupedProducts[currentSlide]?.slice(4, 7).map((product, idx) => (
                                     <div
                                         key={product.id || idx}
-                                        className="flex justify-center items-center border rounded-full bg-gray-500 p-0.5 mx-4 md:mx-14 w-[70px] h-[70px] md:w-[150px] md:h-[150px]"
+                                        className="flex justify-center items-center border rounded-full bg-gray-500 p-0.5 mx-4 md:mx-14 w-[70px] h-[70px] md:w-[100px] md:h-[100px] lg:w-[150px] lg:h-[150px]"
                                     >
                                         <img
                                             src={product.image || "https://via.placeholder.com/150"}

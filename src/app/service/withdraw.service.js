@@ -52,7 +52,7 @@ export const makeWithdrawal = (payload) => async (dispatch) => {
                 "Failed to make withdrawal."; // Fallback error message
 
             dispatch(makeWithdrawalFailure(errorMessage));
-            toast.error(errorMessage);
+            // toast.error(errorMessage);
             return { success: false, message: errorMessage };
         }
     } catch (error) {
@@ -65,7 +65,7 @@ export const makeWithdrawal = (payload) => async (dispatch) => {
             "An error occurred while making withdrawal."; // Fallback error message
 
         dispatch(makeWithdrawalFailure(errorMessage));
-        toast.error(errorMessage);
+        // toast.error(errorMessage);
         return { success: false, message: error };
     }
 };
