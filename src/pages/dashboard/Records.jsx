@@ -147,12 +147,17 @@ const Records = () => {
                                 </div>
 
                                 {/* Product Image */}
-                                <div className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0">
-                                    <img
-                                        src={record.products[0]?.image}
-                                        alt={record.products[0]?.name}
-                                        className="w-full h-full object-cover rounded-md"
-                                    />
+                                <div className="flex flex-wrap">
+                                    {record.products.map((product) => (
+                                        <div key={product.id} className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 m-2">
+                                            <img
+                                                src={product.image}
+                                                alt={product.name}
+                                                className="w-full h-full object-cover rounded-md"
+                                            />
+                                            <p className="text-center text-sm mt-1">{product.name}</p>
+                                        </div>
+                                    ))}
                                 </div>
 
                                 {/* Product Info */}
