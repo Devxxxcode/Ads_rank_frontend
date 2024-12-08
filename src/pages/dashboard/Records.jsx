@@ -31,7 +31,7 @@ const Records = () => {
     const [activeTab, setActiveTab] = useState("All");
     const [currentPage, setCurrentPage] = useState(1);
 
-    const recordsPerPage = 2;
+    const recordsPerPage = 20;
 
     // Filter Records Based on Active Tab
     const filteredRecords =
@@ -55,7 +55,7 @@ const Records = () => {
     // Handle Submit Button for Pending Products
     const handleSubmit = async () => {
         try {
-            const response = await dispatch(submitCurrentGame(1, ''));
+            const response = await dispatch(submitCurrentGame(4, ''));
             if (response.success) {
                 toast.success("Submission successful!");
                 dispatch(fetchGameRecords()); // Refresh the game records

@@ -36,7 +36,7 @@ const TawkTo = () => {
         if (settings?.online_chat_url) {
         const script = document.createElement("script");
         script.async = true;
-        script.src = settings?.online_chat_url;
+        script.src = settings?.online_embed_url;
         script.charset = "UTF-8";
         script.setAttribute("crossorigin", "*");
 
