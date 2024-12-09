@@ -7,6 +7,7 @@ const productSlice = createSlice({
         gameRecords: [], // New state for game records
         currentGame: null, // Store the current game data
         isLoading: false,
+        isLoading_current: false,
         error: null,
         error_msg: null,
     },
@@ -27,11 +28,11 @@ const productSlice = createSlice({
 
         // New reducers for currentGame
         fetchCurrentGameStart(state) {
-            state.isLoading = true;
+            state.isLoading_current = true;
             state.error = null;
         },
         fetchCurrentGameSuccess(state, action) {
-            state.isLoading = false;
+            state.isLoading_current = false;
             state.currentGame = action.payload || null; // Store current game data
             state.error_msg = action.payload.message
         },
@@ -47,7 +48,7 @@ const productSlice = createSlice({
         },
         playGameSuccess(state, action) {
             state.isLoading = false;
-            state.currentGame = action.payload; // Update current game data after submission
+            state.currentGame = null; // Update current game data after submission
         },
         playGameFailure(state, action) {
             state.isLoading = false;

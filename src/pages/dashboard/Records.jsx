@@ -46,9 +46,9 @@ const Records = () => {
 
     // Fetch Game Records
     useEffect(() => {
-        if (!records || records.length === 0) {
+        
             dispatch(fetchGameRecords());
-        }
+        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
@@ -147,18 +147,21 @@ const Records = () => {
                                 </div>
 
                                 {/* Product Image */}
-                                <div className="flex flex-wrap">
-                                    {record.products.map((product) => (
-                                        <div key={product.id} className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 m-2">
-                                            <img
-                                                src={product.image}
-                                                alt={product.name}
-                                                className="w-full h-full object-cover rounded-md"
-                                            />
-                                            <p className="text-center text-sm mt-1">{product.name}</p>
-                                        </div>
-                                    ))}
-                                </div>
+                    <div className="flex flex-wrap gap-4 w-24  pb-4">
+                        {record.products.map((product) => (
+                            <div 
+                                key={product.id} 
+                                className="w-20 h-24 flex-shrink-0 flex flex-col items-center"
+                            >
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="w-20 h-20 object-cover rounded-md"
+                                />
+                                <p className="text-center text-sm mt-2">{product.name}</p>
+                            </div>
+                        ))}
+                    </div>
 
                                 {/* Product Info */}
                                 <div className="flex-grow">

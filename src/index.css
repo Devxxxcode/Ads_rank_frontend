@@ -341,3 +341,11 @@
 .items-center {
   align-items: center;
 }
+
+
+@media (max-width: 768px) { /* Adjust the width threshold as needed */
+  .custom-swal-mobile-size {
+      max-width: 90%; /* Make it almost full-screen for mobile */
+      font-size: 12px; /* Adjust text size for mobile */
+  }
+}

@@ -14,6 +14,8 @@ import {
     fetchGameRecordsSuccess,
     fetchGameRecordsFailure,
 } from "../slice/product.slice";
+import { fetchProfileFailure, fetchProfileStart, fetchProfileSuccess } from "../slice/profile.slice";
+import authService from "./auth.service";
 
 // Fetch Products
 export const fetchProducts = () => async (dispatch) => {
@@ -66,6 +68,9 @@ export const submitCurrentGame = (ratingScore, comment) => async (dispatch) => {
 
         console.log("API Response:", response.data); // Debug log
         const updatedGameData = response.data?.data || null;
+        const response2 = await authService.fetchProfile();
+        dispatch(fetchProfileSuccess(response2.data));
+        dispatch(fetchProfileStart());
         dispatch(playGameSuccess(updatedGameData));
         return { success: true, data: updatedGameData };
     } catch (error) {

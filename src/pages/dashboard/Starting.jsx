@@ -12,6 +12,11 @@ import { fetchProfileFailure, fetchProfileStart, fetchProfileSuccess } from "../
 import authService from "../../app/service/auth.service";
 import Loader from "../dashboard/components/loader"
 import LoadingSpinner from "./components/LoadingSpinner";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+// Initialize SweetAlert2 with React Content
+const MySwal = withReactContent(Swal);
 
 const slideVariants = {
     enter: (direction) => ({
@@ -37,11 +42,12 @@ const Starting = () => {
 
     const profile = useSelector((state) => state.profile.user);
     const isLoading = useSelector((state) => state.products.isLoading);
+    const isLoading_current = useSelector((state) => state.products.isLoading_current);
     const products = useSelector((state) => state.products.products);
     const currentGame = useSelector((state) => state.products.currentGame);
     const error_msg = useSelector((state) => state.products.error_msg);
 
-    console.log("currentGame", currentGame)
+    // console.log("currentGame", currentGame)
 
     // eslint-disable-next-line no-unused-vars
     const images = [
@@ -92,18 +98,18 @@ const Starting = () => {
         fetchProfile();
     }, [dispatch, profile]);
 
+    
 
+    // useEffect(() => {
+    //     const fetchCurrentGameData = async () => {
+    //         if (!currentGame || Object.keys(currentGame).length === 0) {
+    //             dispatch(fetchCurrentGame());
+    //         }
+    //     };
 
-    useEffect(() => {
-        const fetchCurrentGameData = async () => {
-            if (!currentGame || Object.keys(currentGame).length === 0) {
-                dispatch(fetchCurrentGame());
-            }
-        };
-
-        fetchCurrentGameData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch]);
+    //     fetchCurrentGameData();
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [dispatch]);
 
     useEffect(() => {
         const fetchProductsData = async () => {
@@ -150,13 +156,40 @@ const Starting = () => {
     }, [currentSlide]);
 
     const toggleModal = () => {
-        if (!currentGame.id) {
-            setIsModalOpen(false)
-            toast.error(error_msg);
-            return;
-        }
         setIsModalOpen(!isModalOpen);
     };
+
+    const handleButtonClick = async () => {
+        if (!currentGame || Object.keys(currentGame).length === 0) {
+            const response =await dispatch(fetchCurrentGame());
+            console.log("response",response)
+            if (response.success){
+                const special_product = response?.data?.special_product
+                special_product && MySwal.fire({
+                    title: 'Congratulations!!! You Got A Special Product!!!',
+                    text: 'This submission contains a special product. Enjoy!',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        popup: 'custom-swal-mobile-size'
+                    }
+                });
+            }
+        }
+        toggleModal(); // Call toggleModal after fetching game data
+        if (currentGame && currentGame.special_product) {
+            MySwal.fire({
+                title: 'Congratulations!!! You Got A Special Product!!!',
+                text: 'This submission contains a special product. Enjoy!',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                customClass: {
+                    popup: 'custom-swal-mobile-size'
+                }
+            });
+        }
+    };
+
 
     return (
         <div className="flex flex-col items-center min-h-screen">
@@ -193,7 +226,7 @@ const Starting = () => {
                     {[{
                         label: "Wallet Balance", amount: `$${profile?.wallet?.balance || "0.00"} USD`, description: "Profits will be added here"
                     },
-                    { label: "Today's Profit", amount: `$${profile?.wallet?.commission || "0.00"} USD`, description: "Profit Earned" },
+                    { label: "Today's Profit", amount: `$${profile?.today_profit || "0.00"} USD`, description: "Profit Earned" },
                     { label: "On Hold", amount: `$${profile?.wallet?.on_hold || "0.00"} USD`, description: "Will be added to your balance" },
                     { label: "Salary", amount: `$${profile?.wallet?.salary || "0.00"} USD`, description: "Today's Salary" }].map((item, idx) => (
                         <div key={idx} className="p-4 bg-gray-50 rounded-lg shadow-md">
@@ -210,7 +243,7 @@ const Starting = () => {
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold">Start Optimization</h2>
                     <p className="text-red-500 text-xl font-semibold">
-                        {currentGame?.current_number_count || 0} / {currentGame?.total_number_can_play || 0}
+                        {profile?.current_number_count || 0} / {profile?.total_number_can_play || 0}
                     </p>
                 </div>
                 <div className="relative flex justify-center items-center w-full">
@@ -280,8 +313,9 @@ const Starting = () => {
                         ❯
                     </button>
                 </div>
+                
                 <button
-                    onClick={toggleModal}
+                    onClick={handleButtonClick}
                     className="mt-4 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg w-full text-center"
                 >
                     Starting
@@ -297,6 +331,12 @@ const Starting = () => {
                     <li>For inquiries about applicants, please consult Customer Support Services</li>
                 </ul>
             </div>
+
+            {/* <div className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center`}> */}
+                    { isLoading_current && <div className=" absolute z-[10000000]">
+                    <LoadingSpinner/>
+                    </div>}
+                {/* </div> */}
 
             {/* Modal */}
             {isModalOpen && currentGame && (
@@ -322,7 +362,7 @@ const Starting = () => {
 
                         {/* Modal Title */}
                         <h2 className="text-2xl font-bold text-center mb-4 sm:mb-6">Task Submission</h2>
-
+                        
                         {/* Product Images and Details */}
                         <div className="flex items-start sm:space-x-6 mb-4">
                             {/* Product Images */}
@@ -348,7 +388,7 @@ const Starting = () => {
                                 <p className="text-sm sm:text-lg text-red-500 font-bold mt-1 sm:mt-2">
                                     USD {currentGame?.amount}
                                 </p>
-                                {!currentGame.pending && (
+                               
                                     <>
                                         <p className="text-gray-500 text-xs sm:text-sm mt-1">Star Rating</p>
                                         {/* Stars Section */}
@@ -373,7 +413,7 @@ const Starting = () => {
                                             onChange={(e) => setComments(e.target.value)}
                                         ></textarea>
                                     </>
-                                )}
+                                
                             </div>
                         </div>
 
@@ -407,12 +447,12 @@ const Starting = () => {
                                 //     return;
                                 // }
 
-                                if (!currentGame?.pending) {
+                               
                                     if (!selectedStar || selectedStar < 1 || selectedStar > 5) {
                                         toast.error("Please select a valid rating between 1 and 5.");
                                         return;
                                     }
-                                }
+                                
 
                                 try {
                                     const response = await dispatch(
@@ -423,58 +463,17 @@ const Starting = () => {
                                         toast.success("Submission successful!");
                                         setSelectedStar(0);
                                         setComments("");
-                                        dispatch(fetchProfileStart());
-                                        try {
-                                            const response = await authService.fetchProfile();
-                                            if (response.success) {
-                                                dispatch(fetchProfileSuccess(response.data));
-                                            } else {
-                                                dispatch(fetchProfileFailure(response.message || "Failed to load profile."));
-                                                toast.error(response.message || "Failed to load profile.");
-                                            }
-                                        } catch (error) {
-                                            console.error("Error fetching profile:", error);
-                                            dispatch(fetchProfileFailure("An error occurred while fetching your profile."));
-                                            toast.error("An error occurred while fetching your profile.");
-                                        }
                                         toggleModal();
                                     } else {
                                         ErrorHandler(response.message);
-                                        dispatch(fetchProfileStart());
-                                        try {
-                                            const response = await authService.fetchProfile();
-                                            if (response.success) {
-                                                dispatch(fetchProfileSuccess(response.data));
-                                            } else {
-                                                dispatch(fetchProfileFailure(response.message || "Failed to load profile."));
-                                                toast.error(response.message || "Failed to load profile.");
-                                            }
-                                        } catch (error) {
-                                            console.error("Error fetching profile:", error);
-                                            dispatch(fetchProfileFailure("An error occurred while fetching your profile."));
-                                            toast.error("An error occurred while fetching your profile.");
-                                        }
+                                        
                                         toggleModal()
-                                        dispatch(fetchCurrentGame());
+                                        // dispatch(fetchCurrentGame());
                                     }
                                 } catch (error) {
                                     ErrorHandler(error);
-                                    dispatch(fetchProfileStart());
-                                    try {
-                                        const response = await authService.fetchProfile();
-                                        if (response.success) {
-                                            dispatch(fetchProfileSuccess(response.data));
-                                        } else {
-                                            dispatch(fetchProfileFailure(response.message || "Failed to load profile."));
-                                            toast.error(response.message || "Failed to load profile.");
-                                        }
-                                    } catch (error) {
-                                        console.error("Error fetching profile:", error);
-                                        dispatch(fetchProfileFailure("An error occurred while fetching your profile."));
-                                        toast.error("An error occurred while fetching your profile.");
-                                    }
                                     toggleModal()
-                                    dispatch(fetchCurrentGame());
+                                    // dispatch(fetchCurrentGame());
                                 }
                             }}
                             className="w-full bg-red-500 text-white font-semibold py-2 sm:py-3 rounded-full flex justify-center items-center "
