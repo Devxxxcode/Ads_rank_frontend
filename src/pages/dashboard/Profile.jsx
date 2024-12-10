@@ -184,7 +184,7 @@ const Profile = () => {
                         <div className="text-center">
                             <p>Commission:</p>
                             <p className="font-bold text-lg">
-                                ${profile?.wallet?.commission || "0.00"}
+                                ${profile?.today_profit || "0.00"}
                             </p>
                         </div>
                         <div className="text-center">
