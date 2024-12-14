@@ -125,7 +125,7 @@ const Withdraw = () => {
                 >
                     <div className="bg-red-600 text-white p-4 rounded-lg mb-10">
                         <p className="font-semibold text-sm">Total Balance</p>
-                        <p className="text-3xl font-bold">{profile?.wallet?.balance}</p>
+                        <p className="text-3xl font-bold">{profile?.wallet?.balance} USD</p>
                     </div>
 
                     <div className="mb-10">
