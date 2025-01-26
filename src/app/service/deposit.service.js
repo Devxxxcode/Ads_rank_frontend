@@ -17,7 +17,7 @@ export const fetchDeposits = () => async (dispatch) => {
         const response = await axiosInstance.get(depositsAPI);
         const deposits = response.data?.data || [];
         dispatch(fetchDepositsSuccess(deposits));
-        console.log(deposits)
+        // console.log(deposits)
         return { success: true, data: deposits };
     } catch (error) {
         const errorMessage =
