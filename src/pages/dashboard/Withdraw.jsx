@@ -171,26 +171,57 @@ const Withdraw = () => {
                 <motion.div
                     key="history"
                     initial={slideIn("left", null).initial}
-                    animate={slideIn("left", 1 * 2).animate}
-                    exit={{ opacity: 0, x: 50 }}
-                    className="text-gray-500 text-center mt-6"
+                    whileInView={slideIn("left", 1 * 2).animate}
+                    className="space-y-4"
                 >
                     {isLoading ? (
                         <Loader />
                     ) : Array.isArray(history) ? (
                         history.length > 0 ? (
-                            <ul>
-                                {history.map((item, index) => (
-                                    <li key={index} className="p-4 border-b">
-                                        Amount: {item.amount} USD | Date: {item.date} | Status: {item.status}
-                                    </li>
-                                ))}
-                            </ul>
+                            history.map((transaction) => (
+                                <div
+                                    key={transaction.id || transaction.date}
+                                    className="flex items-center justify-between p-4 bg-white rounded-lg shadow border border-gray-200"
+                                >
+                                    <div>
+                                        <p className="font-semibold text-gray-700">Withdrawal</p>
+                                        <p className="text-sm text-gray-500">{transaction.date}</p>
+                                    </div>
+                                    <div className="flex flex-col items-end">
+                                        <span
+                                            className={`${transaction.status === "Processed"
+                                                ? "bg-green-500"
+                                                : transaction.status === "Pending"
+                                                ? "bg-yellow-500"
+                                                : "bg-red-500"
+                                                } text-white text-sm font-semibold px-3 py-1 rounded-full mb-1`}
+                                        >
+                                            {transaction.status}
+                                        </span>
+                                        <p className="text-gray-700 font-bold">
+                                            {transaction.amount} USD
+                                        </p>
+                                        <p className="text-gray-700 font-bold">
+                                            {new Date(transaction.created_at || transaction.date).toLocaleDateString('en-US', {
+                                                day: '2-digit',
+                                                month: 'short',
+                                                year: 'numeric',
+                                            })} at {new Date(transaction.created_at || transaction.date).toLocaleTimeString('en-US', {
+                                                hour: '2-digit',
+                                                minute: '2-digit',
+                                                hour12: true,
+                                            })}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))
                         ) : (
-                            <p className="text-gray-500 text-center">No withdrawal history</p>
+                            <p className="text-center text-gray-500">
+                                No withdrawal history available.
+                            </p>
                         )
                     ) : (
-                        <p className="text-red-500">An error occurred while fetching withdrawal history.</p>
+                        <p className="text-red-500 text-center">An error occurred while fetching withdrawal history.</p>
                     )}
                 </motion.div>
             )}
