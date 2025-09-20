@@ -1,9 +1,12 @@
 // export const BASEURL = "https://ads-backend-mh29.onrender.com";
-export const BASEURL = "https://ads-backend-4ho2.onrender.com";
-// export const BASEURL = "http://127.0.0.1:8000/";
+// export const BASEURL = "https://ads-backend-4ho2.onrender.com";
+export const BASEURL = "http://127.0.0.1:8000";
 
 export const loginAPI = `${BASEURL}/auth/login/`;
 export const registerAPI = `${BASEURL}/auth/signup/`;
+export const sendOTPAPI = `${BASEURL}/auth/send_otp/`;
+export const verifyOTPAPI = `${BASEURL}/auth/verify_otp/`;
+export const registerWithOTPAPI = `${BASEURL}/auth/signup_with_otp/`;
 export const refreshToken = `${BASEURL}/auth/refresh-token/`;
 export const meAPI = `${BASEURL}/auth/me/`;
 export const updateAPI = `${BASEURL}/auth/update_profile/`;

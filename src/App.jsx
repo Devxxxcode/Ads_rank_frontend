@@ -18,6 +18,7 @@ import {
   events,
   certificate,
   signup,
+  signupOTP,
   contact1,
   login,
   termsandconds,
@@ -45,6 +46,7 @@ import FAQs from "./pages/dashboard/FAQs";
 import Events from "./pages/dashboard/Events";
 import Certificate from "./pages/dashboard/Certificate";
 import SignUp from "./pages/authentication/SignUp";
+import SignUpWithOTP from "./pages/authentication/SignUpWithOTP";
 import ProtectedRoute from "./pages/ProtectedRoute"; // Import the ProtectedRoute
 import Loader from "./pages/Loader";
 import { Toaster } from "sonner";
@@ -62,6 +64,7 @@ function App() {
           <Route index element={<Login />} />
           <Route path={signup} element={<SignUp />} />
         </Route>
+        <Route path={signupOTP} element={<SignUpWithOTP />} />
         <Route path={contact1} element={<ContactUs />} />
         <Route path={termsandconds} element={<TermsandCond />} />
 

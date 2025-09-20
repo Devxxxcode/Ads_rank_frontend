@@ -9,6 +9,7 @@ import { toast } from "sonner"; // Import sonner for toasts
 import authService from "../../app/service/auth.service";
 import AppInit from "../../app/state.helper";
 import Loader from "../dashboard/components/loader";
+import LoadingSpinner from "../../components/LoadingSpinner";
 // import { Toaster } from "sonner";
 
 const Login = () => {
@@ -113,7 +114,7 @@ const Login = () => {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder="Username/Email"
-                            className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition-colors"
                         />
                     </div>
 
@@ -130,7 +131,7 @@ const Login = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Password"
-                            className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition-colors"
                         />
                     </div>
 
@@ -145,10 +146,21 @@ const Login = () => {
 
                     <button
                         type="submit"
-                        className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-400 transition duration-200 flex justify-center items-center"
+                        className={`w-full py-3 rounded-lg font-semibold transition-all duration-200 flex justify-center items-center space-x-2 ${
+                            loading 
+                                ? 'bg-gray-400 cursor-not-allowed' 
+                                : 'bg-red-600 hover:bg-red-500 hover:shadow-lg transform hover:-translate-y-0.5'
+                        } text-white`}
                         disabled={loading}
                     >
-                        {loading ? <Loader /> : "Login"}
+                        {loading ? (
+                            <>
+                                <LoadingSpinner size="md" color="white" />
+                                <span>Logging in...</span>
+                            </>
+                        ) : (
+                            <span>Login</span>
+                        )}
                     </button>
                 </form>
 

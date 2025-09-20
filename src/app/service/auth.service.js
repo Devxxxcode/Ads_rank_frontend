@@ -5,6 +5,9 @@ import {
     refreshToken as refreshTokenAPI,
     registerAPI,
     settingsAPI,
+    sendOTPAPI,
+    verifyOTPAPI,
+    registerWithOTPAPI,
 } from "../../constants/api.routes"; // Use defined API routes
 import {
     loginSuccess,
@@ -40,7 +43,7 @@ const authService = {
     },
 
     /**
-     * Registers a new user.
+     * Registers a new user (Legacy - without OTP).
      */
     register: async (registrationData) => {
         try {
@@ -49,25 +52,83 @@ const authService = {
             console.log(response);
             return { success: true, message: "Registration successful." };
         } catch (error) {
-            // let errorMessage = "Registration failed. Please try again.";
-            // const errorData = error.response?.data;
-
-            // // Handle nested or multiple error messages
-            // if (errorData?.message) {
-            //     if (typeof errorData.message === "string") {
-            //         errorMessage = errorData.message;
-            //     } else if (typeof errorData.message === "object") {
-            //         const messages = Object.values(errorData.message).flat();
-            //         errorMessage = messages[0] || errorMessage;
-            //     }
-            // } else if (errorData?.errors) {
-            //     const errorMessages = Object.values(errorData.errors).flat();
-            //     errorMessage = errorMessages[0] || errorMessage;
-            // }
-
-            // store.dispatch(registerFailure(errorMessage));
-            // toast.error(errorMessage); // Show error message via toast
             return { success: false, message: error };
+        }
+    },
+
+    /**
+     * Sends OTP to user's email for verification.
+     */
+    sendOTP: async (email) => {
+        try {
+            const response = await axiosInstance.post(sendOTPAPI, { email });
+            return { success: true, message: response.data.message };
+        } catch (error) {
+            const errorData = error.response?.data;
+            let errorMessage = "Failed to send OTP. Please try again.";
+            
+            if (errorData?.message) {
+                if (typeof errorData.message === "string") {
+                    errorMessage = errorData.message;
+                } else if (typeof errorData.message === "object") {
+                    const messages = Object.values(errorData.message).flat();
+                    errorMessage = messages[0] || errorMessage;
+                }
+            }
+            
+            return { success: false, message: errorMessage };
+        }
+    },
+
+    /**
+     * Verifies OTP code.
+     */
+    verifyOTP: async (email, otpCode) => {
+        try {
+            const response = await axiosInstance.post(verifyOTPAPI, { 
+                email, 
+                otp_code: otpCode 
+            });
+            return { success: true, message: response.data.message };
+        } catch (error) {
+            const errorData = error.response?.data;
+            let errorMessage = "Invalid OTP code. Please try again.";
+            
+            if (errorData?.message) {
+                if (typeof errorData.message === "string") {
+                    errorMessage = errorData.message;
+                } else if (typeof errorData.message === "object") {
+                    const messages = Object.values(errorData.message).flat();
+                    errorMessage = messages[0] || errorMessage;
+                }
+            }
+            
+            return { success: false, message: errorMessage };
+        }
+    },
+
+    /**
+     * Registers a new user with OTP verification.
+     */
+    registerWithOTP: async (registrationData) => {
+        try {
+            const response = await axiosInstance.post(registerWithOTPAPI, registrationData);
+            store.dispatch(registerSuccess());
+            return { success: true, message: "Registration successful. Email verified." };
+        } catch (error) {
+            const errorData = error.response?.data;
+            let errorMessage = "Registration failed. Please try again.";
+            
+            if (errorData?.message) {
+                if (typeof errorData.message === "string") {
+                    errorMessage = errorData.message;
+                } else if (typeof errorData.message === "object") {
+                    const messages = Object.values(errorData.message).flat();
+                    errorMessage = messages[0] || errorMessage;
+                }
+            }
+            
+            return { success: false, message: errorMessage };
         }
     },
 

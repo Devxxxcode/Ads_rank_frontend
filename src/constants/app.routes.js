@@ -1,6 +1,7 @@
 export const homepage = "/";
 export const login = "/login";
 export const signup = "signup";
+export const signupOTP = "/signup-otp";
 export const home = "/home";
 export const contact1 = "/contact"
 export const profile = "profile";
