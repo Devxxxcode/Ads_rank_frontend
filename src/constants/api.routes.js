@@ -1,6 +1,6 @@
 // export const BASEURL = "https://ads-backend-mh29.onrender.com";
-// export const BASEURL = "https://ads-backend-4ho2.onrender.com";
-export const BASEURL = "http://127.0.0.1:8000";
+export const BASEURL = "https://ads-backend-4ho2.onrender.com";
+// export const BASEURL = "http://127.0.0.1:8000";
 
 export const loginAPI = `${BASEURL}/auth/login/`;
 export const registerAPI = `${BASEURL}/auth/signup/`;
